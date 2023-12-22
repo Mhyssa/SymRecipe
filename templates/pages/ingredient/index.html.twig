@@ -5,9 +5,32 @@
 {% block body %}
     
     <div class="container mt-4">
-    <h1>Mes ingrédients</h1>
-
+    {% if not ingredients.items is same as ([]) %}
+        
     
+    <h1>Mes ingrédients</h1>
+        <div class="count">
+            <p>Il y a {{ ingredients.getTotalItemCount }} ingrédients</p>
+        </div>
+
+<a href="{{ path('ingredient.new')}}" class="btn btn-primary">
++ Ajouter un ingredient
+</a>
+
+
+{# Warning you need to apply DRY #}
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success mt-4">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+    <div class="alert alert-dark mt-4">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -15,6 +38,10 @@
       <th scope="col">Nom</th>
       <th scope="col">Prix</th>
       <th scope="col">Date</th>
+      <th scope="col">Edition</th>
+      <th scope="col">Suppression</th>
+
+    
     </tr>
   </thead>
 {% for ingredient in ingredients %}
@@ -24,11 +51,19 @@
       <td>{{ ingredient.name}}</td>
       <td>{{ ingredient.price}}</td>
       <td>{{ ingredient.CreatedAt|date("d/m/Y")}}</td>
+      <td><a href="{{ path('ingredient.edit', {id: ingredient.id}) }}" class="btn btn-warning">Stylo</a></td>
+      <td><a href="{{ path('ingredient.delete',  {id: ingredient.id}) }}" class="btn btn-danger">Corbeille</a></td>
+      <td></td>
     </tr>
   </tbody>
 
 {% endfor %}
 </table>
-
+<div class="navigation d-flex justify-content-center ">
+    {{ knp_pagination_render(ingredients) }}
+</div>
+{% else %}
+<h4>Il n'y a pas d'ingrédients</h4>
+{% endif %}
  </div>
 {% endblock %}
