@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symreciepe - Mes Recettes{% endblock %}
+
+{% block body %}
+    
+    
+
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Numéro</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Date</th>
+      <th scope="col">Edition</th>
+      <th scope="col">Suppression</th>
+
+    
+    </tr>
+  </thead>
+{% for recipe in recipes %}
+  <tbody>
+    <tr class="table-info">
+      <th scope="row">{{ recipe.id}}</th>
+      <td>{{ recipe.name}}</td>
+      <td>{{ recipe.price}}</td>
+      <td>{{ recipe.CreatedAt|date("d/m/Y")}}</td>
+      {# <td><a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-warning">Stylo</a></td>
+      <td><a href="{{ path('recipe.delete',  {id: recipe.id}) }}" class="btn btn-danger">Corbeille</a></td> #}
+      <td></td>
+    </tr>
+  </tbody>
+
+{% endfor %}
+</table>
+<div class="navigation d-flex justify-content-center ">
+    {{ knp_pagination_render(recipes) }}
+</div>
+
+
+
+ </div>
+{% endblock %}
