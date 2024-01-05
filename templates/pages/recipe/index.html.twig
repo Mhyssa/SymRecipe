@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symreciepe - Mes Recettes{% endblock %}
+
+{% block body %}
+    
+    <div class="container mt-4">
+    {% if not recipes.items is same as ([]) %}
+        
+    
+    <h1>Mes recettes</h1>
+        <div class="count">
+            <p>Il y a {{ recipes.getTotalItemCount }} recettes</p>
+        </div>
+
+<a href="{{ path('recipe.new')}}" class="btn btn-primary">
++ Ajouter une recette
+</a>
+
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success mt-4">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Numéro</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Difficulté</th>
+      <th scope="col">Date</th>
+      {# <th scope="col">Edition</th>
+      <th scope="col">Suppression</th> #}
+
+    
+    </tr>
+  </thead>
+{% for recipe in recipes %}
+  <tbody>
+        <tr class="table-info">
+      <th scope="row">{{ recipe.id }}</th>
+      <td>{{ recipe.name }}</td>
+      <td>
+        {% if recipe.price is null %}
+          🚫
+        {% else %}
+          {{ recipe.price }}
+        {% endif %}
+      </td>
+      <td>{% if recipe.difficulty is null %}
+          🚫
+        {% else %}
+          {{ recipe.difficulty }}
+        {% endif %}</td>
+      <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
+      {# TODO #}
+      {# <td><a href="{{ path('ingredient.edit', {id: recipe.id}) }}" class="btn btn-warning">Stylo</a></td>
+      <td><a href="{{ path('ingredient.delete',  {id: recipe.id}) }}" class="btn btn-danger">Corbeille</a></td> #}
+      
+    </tr>
+  </tbody>
+
+{% endfor %}
+</table>
+<div class="navigation d-flex justify-content-center ">
+    {{ knp_pagination_render(recipes) }}
+</div>
+{% else %}
+<h4>Il n'y a pas d'recettes</h4>
+{% endif %}
+ </div>
+{% endblock %}
