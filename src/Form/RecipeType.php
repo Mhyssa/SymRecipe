@@ -31,6 +31,7 @@ class RecipeType extends AbstractType
                 'minlength' => '2',
                 'maxlength' => '50'
             ],
+            'required' => false,
             'label' => 'Nom',
             'label_attr' => [
                 'class' => 'form-label mt-4'
@@ -110,6 +111,7 @@ class RecipeType extends AbstractType
                 'class'=>'form-control',
                
             ],
+            'required' => false,
             'label'=>'Prix ',
             'label_attr'=>[
                 'class' => 'form-label mt-4'

@@ -17,15 +17,20 @@
 + Ajouter une recette
 </a>
 
-    {% for message in app.flashes('success') %}
+      {% for message in app.flashes('success') %}
     <div class="alert alert-success mt-4">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger mt-4">
         {{ message }}
     </div>
     {% endfor %}
 
 
 
-<table class="table table-hover">
+<table class="table table-hover mt-4">
   <thead>
     <tr>
       <th scope="col">Numéro</th>
@@ -33,8 +38,8 @@
       <th scope="col">Prix</th>
       <th scope="col">Difficulté</th>
       <th scope="col">Date</th>
-      {# <th scope="col">Edition</th>
-      <th scope="col">Suppression</th> #}
+      <th scope="col">Edition</th>
+      <th scope="col">Suppression</th> 
 
     
     </tr>
@@ -57,9 +62,8 @@
           {{ recipe.difficulty }}
         {% endif %}</td>
       <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
-      {# TODO #}
-      {# <td><a href="{{ path('ingredient.edit', {id: recipe.id}) }}" class="btn btn-warning">Stylo</a></td>
-      <td><a href="{{ path('ingredient.delete',  {id: recipe.id}) }}" class="btn btn-danger">Corbeille</a></td> #}
+      <td><a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-warning">Stylo</a></td>
+      <td><a href="{{ path('recipe.delete',  {id: recipe.id}) }}" class="btn btn-danger">Corbeille</a></td>
       
     </tr>
   </tbody>
