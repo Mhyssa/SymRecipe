@@ -9,6 +9,12 @@ Symreciepe - Connexion
 {% block body %}
 <div class="container">
 		<h1 class="mt-4">Formulaire de connnexion</h1>
+		
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success mt-4">
+        {{ message }}
+    </div>
+    {% endfor %}
 
 	 {% if error %}
         <div class="alert alert-danger mt-4">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
