@@ -34,7 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length( min: 2, max: 180)]
     private ?string $email = null;
     
-    #[ORM\Column]    
+    #[ORM\Column(nullable: true)]    
     #[Assert\NotNull()]
     private array $roles = [];
     
@@ -128,9 +128,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value plainPassword
      */
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
-        return $this->plainPassword;
+        // return $this->plainPassword;
+        return $this->plainPassword ?? '';
     }
 
     public function setPlainPassword(string $plainPassword): static

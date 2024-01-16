@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-Symreciepe - Accueil
+Symrecipe - Accueil
 {% endblock %}
 
 
@@ -9,15 +9,25 @@ Symreciepe - Accueil
 {% block body %}
 <div class="container mt-4">
 
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </p>
-</div>
-</div>
+  <div class="px-4 pt-5 my-5 text-center">
+    <h1 class="display-4 fw-bold">SymRecipe</h1>
+    <div class="col-lg-7 mx-auto">
+      <p class="lead my-4 text-align-left">Explorez une expérience culinaire personnalisée avec notre site innovant ! 🍳 Créez, modifiez et partagez vos recettes uniques à partir de votre espace personnel. Ajoutez et ajustez facilement tous vos ingrédients pour des plats qui reflètent votre créativité. 🌶️ Découvrez une cuisine sur mesure qui vous ressemble, et invitez le monde à savourer vos créations gastronomiques. Rejoignez notre communauté passionnée de chefs virtuels dès aujourd'hui ! 🎉 <br>
+      <span style="color: #287bb5; font-weight: bold;">Commencez votre aventure culinaire dès maintenant !</span> 🍽️✨</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+        <button type="button" class="btn btn-info btn-lg px-4 me-sm-3"><a class="link-light" href="{{path('recipe.index')}}">Mes Recettes</a></button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4"><a class="link-dark" href="{{path('user.index')}}">Se connecter</a></button>
+      </div>
+    </div>
+    <div class="overflow-hidden" style="max-height: 30vh;">
+      <div class="container px-5">
+        <img
+        src="https://img.freepik.com/photos-premium/assiette-bleue-legumes-epices-fond-pierre-noire-vue-dessus-style-rustique_187166-8019.jpg?w=1380" 
+        class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+      </div>
+    </div>
+  </div>
+  </div>
+
 
 {% endblock %}
