@@ -13,7 +13,7 @@
             <p>Il y a {{ ingredients.getTotalItemCount }} ingrédients</p>
         </div>
 
-<a href="{{ path('ingredient.new')}}" class="btn btn-primary">
+<a href="{{ path('ingredient.new')}}" class="btn btn-info">
 + Ajouter un ingredient
 </a>
 
@@ -24,8 +24,8 @@
         {{ message }}
     </div>
     {% endfor %}
-    {% for message in app.flashes('danger') %}
-    <div class="alert alert-dark mt-4">
+    {% for message in app.flashes('warning') %}
+    <div class="alert alert-warning mt-4">
         {{ message }}
     </div>
     {% endfor %}
@@ -46,13 +46,13 @@
   </thead>
 {% for ingredient in ingredients %}
   <tbody>
-    <tr class="table-info">
+    <tr class="table-success">
       <th scope="row">{{ ingredient.id}}</th>
       <td>{{ ingredient.name}}</td>
       <td>{{ ingredient.price}}</td>
       <td>{{ ingredient.CreatedAt|date("d/m/Y")}}</td>
-      <td><a href="{{ path('ingredient.edit', {id: ingredient.id}) }}" class="btn btn-warning">Stylo</a></td>
-      <td><a href="{{ path('ingredient.delete',  {id: ingredient.id}) }}" class="btn btn-danger">Corbeille</a></td>
+      <td><a href="{{ path('ingredient.edit', {id: ingredient.id}) }}" class="btn btn-info">Stylo</a></td>
+      <td><a href="{{ path('ingredient.delete',  {id: ingredient.id}) }}" class="btn btn-success">Corbeille</a></td>
       <td></td>
     </tr>
   </tbody>

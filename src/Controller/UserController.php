@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+
 use App\Form\UserType;
+use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
@@ -21,7 +25,7 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/utilisateur/edition/{id}', name: 'user.edit', methods: ['GET', 'POST'])]
-    public function edit(User $user, Request $request, EntityManagerInterface $manager): Response
+    public function edit(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher): Response
     {
         if(!$this->getUser()){
             return $this->redirectToRoute('security.login');
@@ -36,16 +40,26 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            $user = $form->getData();
-            $manager->persist($user);
-            $manager->flush();
+            $submittedPassword = $form->getData()->getPlainPassword();
 
-            $this->addFlash(
-                'success',
-                'Votre profil a bien été modifié'
-            );
+            if($passwordHasher->isPasswordValid($user, $submittedPassword)){
 
-            return $this->redirectToRoute('recipe.index');
+                $user = $form->getData();
+                $manager->persist($user);
+                $manager->flush();
+                
+                $this->addFlash(
+                    'success',
+                    'Votre profil a bien été modifié'
+                );
+                
+                return $this->redirectToRoute('recipe.index');
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'mot de passe incorect'
+                 );
+            }
         }
         
         return $this->render('pages/user/edit.html.twig', [
@@ -53,11 +67,49 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit.password', methods: ['GET', 'POST'])]
+    public function editPassword(
+        User $user,
+        Request $request,
+        EntityManagerInterface $manager,
+        UserPasswordHasherInterface $hasher
+    ): Response {
+        $form = $this->createForm(UserPasswordType::class);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
+               
+                $user->setPlainPassword(
+                    $form->getData()['newPassword']
+                );
 
+                $this->addFlash(
+                    'success',
+                    'Le mot de passe a été modifié.'
+                );
+
+                $manager->persist($user);
+                $manager->flush();
+
+                return $this->redirectToRoute('recipe.index');
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'Le mot de passe renseigné est incorrect.'
+                );
+            }
+        }
+
+        return $this->render('pages/user/edit_password.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    
     #[Route('/utilisateur', name: 'user.index', methods:['GET'])]
     public function index(): Response
     {       
         return $this->render('pages/user/index.html.twig');
     }
 }
+

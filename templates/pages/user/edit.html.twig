@@ -10,6 +10,13 @@ Symreciepe - Edition du profil
 <div class="container mt-4">
 
     <h1 class="mt-4"> Formulaire d'édition du profil utilisateur</h1>
+
+    {% for message in app.flashes('warning') %}
+    <div class="alert alert-warning mt-4">
+        {{ message }}
+    </div>
+    {% endfor %}
+
     {{form(form)}}
 </div>
 
