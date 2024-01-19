@@ -76,7 +76,7 @@ class UserController extends AbstractController
      * @param UserPasswordHasherInterface $hasher
      * @return Response
      */
-    #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit.password', methods: ['GET', 'POST'])]
+    #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit_password', methods: ['GET', 'POST'])]
     public function editPassword(
         User $user,
         Request $request,

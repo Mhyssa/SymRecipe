@@ -29,7 +29,7 @@ class IngredientController extends AbstractController
     {
         
         $ingredients = $paginator->paginate(
-            $repository->findAll(), /* query NOT result */
+            $repository->findBy(['user' => $this->getUser()]), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
@@ -60,6 +60,7 @@ class IngredientController extends AbstractController
            // $form->getData() holds the submitted values
            // but, the original `$task` variable has also been updated
         $ingredient = $form->getData();
+        $ingredient->setUser($this->getUser());
         
         $manager->persist($ingredient);
         $manager->flush();
