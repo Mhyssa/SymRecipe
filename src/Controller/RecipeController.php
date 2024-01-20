@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RecipeController extends AbstractController
@@ -27,6 +29,7 @@ class RecipeController extends AbstractController
      * @return Response
      */
     #[Route('/recette', name: 'recipe.index', methods:['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(RecipeRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
             $recipes = $paginator->paginate(
@@ -48,6 +51,7 @@ class RecipeController extends AbstractController
      * @return Response
      */
     #[Route('/recette/creation', name: 'recipe.new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $manager ) : Response 
     {
        
@@ -87,6 +91,10 @@ class RecipeController extends AbstractController
      * @return Response
      */    
         #[Route('/recette/edition/{id}', name: 'recipe.edit', methods: ['GET', 'POST'])]
+        #[IsGranted(
+            new Expression('is_granted("ROLE_USER") and user === subject.getUser()'),
+            subject: 'recipe',
+        )]
         public function edit(Recipe $recipe, Request $request,
         EntityManagerInterface $manager) : Response 
     {
