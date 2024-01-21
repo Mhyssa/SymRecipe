@@ -25,6 +25,25 @@ Symrecipe - Accueil
         src="https://img.freepik.com/photos-premium/assiette-bleue-legumes-epices-fond-pierre-noire-vue-dessus-style-rustique_187166-8019.jpg?w=1380" 
         class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
       </div>
+      </div>
+      
+      <div class="recipes">
+			<h2 class="mt-4">Recettes de la communauté</h2>
+			<div class="d-flex justify-content-between">
+				{% for recipe in recipes %}
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">Recette n°{{ recipe.id }}</div>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="{{ path('recipe.index.public', {id: recipe.id}) }}">{{ recipe.name }}</a>
+							</h4>
+							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
     </div>
   </div>
   </div>
