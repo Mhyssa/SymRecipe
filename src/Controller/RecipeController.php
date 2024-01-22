@@ -125,7 +125,6 @@ class RecipeController extends AbstractController
     public function new(Request $request, EntityManagerInterface $manager ) : Response 
     {
        
-
     $recipe = new Recipe();
     $form = $this->createForm(RecipeType::class, $recipe);
 
