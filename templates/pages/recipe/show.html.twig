@@ -13,6 +13,12 @@
 			</div>
 		{% endfor %}
 
+
+<div class="recipe__image">
+    <img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile')}}" alt="">
+</div>
+
+
 <p>Moyenne de la recette : {{ recipe.average|number_format(2, '.', ',') }}/5</p>
 
 
