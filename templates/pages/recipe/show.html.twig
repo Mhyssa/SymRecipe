@@ -15,45 +15,50 @@
 
 
 <div class="row g-0 border rounded overflow-hidden flex-md-row my-5 shadow-sm h-md-250 position-relative">
-    <div class="row">
-    <div class="col-12 bg-success">
-    <strong class="d-inline-block mb-2 text-primary-emphasis"><h1 class="mt-4">{{recipe.name}}</h1></strong>
-          
-    </div>
+    
+    <div class="row shadow-sm">
+      <div class="col-12 bg-secondary text-center">
+        <strong class="d-inline-block mb-2 text-primary-emphasis">
+          <h1 class="mt-4">{{recipe.name}}</h1>
+        </strong>
+      </div>
     </div>
     
-    <div class="col-md-5 col-sm-12 bg-info">
+    <div class="col-md-5 col-sm-12 bg-secondary">
         <div class="recipe__image">    
             <img style="max-width: 100%;" src="{{ vich_uploader_asset(recipe, 'imageFile')}}" alt="{{recipe.description|raw}}">
+            <span class="badge bg-info">Créée le :{{ recipe.createdAt|date('d/m/Y')}}</span>
         </div>
     </div>
 
     <div class="col-md-7 p-4 d-flex flex-column position-static">
-        <span class="badge bg-info">Créée le :{{ recipe.createdAt|date('d/m/Y')}}</span>
-          <h3 class="mb-0">    
-          {% if recipe.time %}
-        <p>Temps : {{recipe.time}} min</p>
-    {% else %}
-        <p>Temps non renseigné.</p>
-    {% endif %}</h3>
-              <h3 class="mb-0">    
-                  {% if recipe.nbPeople %}
-        <p>Pour {{recipe.nbPeople}} personnes.</p>
-    {% else %}
-        <p>Nombre de personnes non renseigné.</p>
-    {% endif %}
-              </h3>
+
+<div class="row">
+<div class="col-6 col-sm-6"><h3 class="mb-0">    
+        {% if recipe.time %}<p>⏲️ {{recipe.time}} min</p>{% else %}<p>Temps non renseigné.</p>{% endif %}
+      </h3></div>
+<div class="col-6 col-sm-6"><h3 class="mb-0">    
+        {% if recipe.nbPeople %}<p>🧑🏽‍🍳 {{recipe.nbPeople}} pers</p>{% else %}<p>Nombre de personnes non renseigné.</p>{% endif %}
+      </h3></div>
+</div>
+
+
+
+<div class="col-12 col-sm-12 ">
+            {% if recipe.price %}
+                <strong><p class="btn btn-outline-dark btn-lg">{{recipe.price}} $</p></strong>
+            {% else %}
+                <p>Prix non renseigné.</p>
+            {% endif %}
+</div>
+      
             {% if recipe.difficulty %}
             <p>Difficulté : {{recipe.difficulty}}/5</p>
             {% else %}
             <p>Difficulté non renseigné</p>
             {% endif %}
 
-            {% if recipe.price %}
-                <strong><p>{{recipe.price}} $</p></strong>
-            {% else %}
-                <p>Prix non renseigné.</p>
-            {% endif %}
+
           <div class="mb-1 text-body-secondary"><p>Moyenne de la recette : {{ recipe.average|number_format(2, '.', ',') }}/5</p></div>
           <div class="col-md-6">
             {% for ingredient in recipe.ingredients %}

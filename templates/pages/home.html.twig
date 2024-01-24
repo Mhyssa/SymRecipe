@@ -16,7 +16,7 @@ Symrecipe - Accueil
       <span style="color: #287bb5; font-weight: bold;">Commencez votre aventure culinaire dès maintenant !</span> 🍽️✨</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
         <button type="button" class="btn btn-info btn-lg px-4 me-sm-3"><a class="link-light" href="{{path('recipe.index')}}">Mes Recettes</a></button>
-        <button type="button" class="btn btn-outline-secondary btn-lg px-4"><a class="link-dark" href="{{path('user.index')}}">Se connecter</a></button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4"><a class="link-dark" href="{{path('security.login')}}">Se connecter</a></button>
       </div>
     </div>
     <div class="overflow-hidden" style="max-height: 30vh;">
@@ -28,16 +28,16 @@ Symrecipe - Accueil
       </div>
       
       <div class="recipes">
-			<h2 class="mt-4">Recettes de la communauté</h2>
+			<h2 class="my-4">Recettes de la communauté</h2>
 			<div class="d-flex justify-content-between">
 				{% for recipe in recipes %}
-					<div class="card border-primary mb-3" style="max-width: 20rem;">
+					<div class="card border-info mb-3" style="max-width: 20rem;">
 						<div class="card-header">Recette n°{{ recipe.id }}</div>
 						<div class="card-body">
 							<h4 class="card-title">
-								<a href="{{ path('recipe.index.public', {id: recipe.id}) }}">{{ recipe.name }}</a>
+								<a class="text-info"href="{{ path('recipe.index.public', {id: recipe.id}) }}">{{ recipe.name }}</a>
 							</h4>
-							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+							<p class="card-text">{{ recipe.description|slice(0, 70) ~ '...' }}</p>
 						</div>
 					</div>
 				{% endfor %}

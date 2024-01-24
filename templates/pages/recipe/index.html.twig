@@ -7,17 +7,17 @@
     <div class="container mt-4">
     {% if not recipes.items is same as ([]) %}
         
+    <div class="row">
+      <div class="col-6 col-sm-6">
+        <h1>Mes recettes</h1>
+      </div>
+      <div class="col-6 col-sm-6">
+        <a href="{{ path('recipe.new')}}" class="btn btn-outline-info"><i class="bi bi-basket"> Ajouter une recette</i></a>
+        <div class="count"><p>Il y a <strong>{{ recipes.getTotalItemCount }}</strong> recettes</p></div>
+      </div>
+    </div>
     
-    <h1>Mes recettes</h1>
-        <div class="count">
-            <p>Il y a {{ recipes.getTotalItemCount }} recettes</p>
-        </div>
-
-<a href="{{ path('recipe.new')}}" class="btn btn-primary">
-+ Ajouter une recette
-</a>
-
-      {% for message in app.flashes('success') %}
+    {% for message in app.flashes('success') %}
     <div class="alert alert-success mt-4">
         {{ message }}
     </div>
@@ -28,10 +28,8 @@
     </div>
     {% endfor %}
 
-
-
-<table class="table table-hover mt-4">
-  <thead>
+<table class="table table-bordered table-hover mt-4">
+  <thead class="table-light">
     <tr>
       <th scope="col">Numéro</th>
       <th scope="col">Nom</th>
@@ -46,30 +44,30 @@
   </thead>
 {% for recipe in recipes %}
   <tbody>
-        <tr class="table-info">
+    <tr class="table-secondary ">
       <th scope="row">{{ recipe.id }}</th>
       <td>{{ recipe.name }}</td>
       <td>
         {% if recipe.price is null %}
           🚫
         {% else %}
-          {{ recipe.price }}
+          {{ recipe.price }} $
         {% endif %}
       </td>
       <td>{% if recipe.difficulty is null %}
           🚫
         {% else %}
-          {{ recipe.difficulty }}
+          {{ recipe.difficulty }}/5
         {% endif %}</td>
+      <td><a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-outline-primary"><i class="bi bi-pen"></i></a></td>
+      <td><a href="{{ path('recipe.delete', {id: recipe.id}) }}" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"></path></svg></a></td>
       <td>{{ recipe.createdAt|date("d/m/Y") }}</td>
-      <td><a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-warning">Stylo</a></td>
-      <td><a href="{{ path('recipe.delete',  {id: recipe.id}) }}" class="btn btn-danger">Corbeille</a></td>
-      
     </tr>
   </tbody>
 
 {% endfor %}
 </table>
+
 <div class="navigation d-flex justify-content-center ">
     {{ knp_pagination_render(recipes) }}
 </div>
