@@ -35,7 +35,7 @@ class UserController extends AbstractController
         User $chosenUser, 
         Request $request, 
         EntityManagerInterface $manager, 
-        UserPasswordHasherInterface $passwordHasher): Response
+        UserPasswordHasherInterface $hasher): Response
     {
         // if(!$this->getUser()){
         //     return $this->redirectToRoute('security.login');
@@ -52,7 +52,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) { 
             $submittedPassword = $form->getData()->getPlainPassword();
 
-            if($passwordHasher->isPasswordValid($chosenUser, $submittedPassword)){
+            if($hasher->isPasswordValid($chosenUser, $submittedPassword)){
 
                 $user = $form->getData();
                 $manager->persist($user);
