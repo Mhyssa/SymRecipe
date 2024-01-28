@@ -2,31 +2,31 @@
 
 namespace App\Controller\Admin;
 
-use DateTime;
-use App\Entity\User;
+use App\Entity\Contact;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class UserCrudController extends AbstractCrudController
+class ContactCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return Contact::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInPlural('Utilisateurs')
-            ->setEntityLabelInSingular('Utilisateur')
+        ->setEntityLabelInPlural('Les demandes de contact')
+        ->setEntityLabelInSingular('La demande de contact')
 
-            ->setPageTitle("index", "Symrecipe - Administration des utilisateurs")
-            ->setPaginatorPageSize(5);
+        ->setPageTitle("index", "Symrecipe - Administration des demandes de contact")
+        ->setPaginatorPageSize(10);
     }
     
     public function configureFields(string $pageName): iterable
@@ -35,12 +35,11 @@ class UserCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('fullName'),
-            TextField::new('pseudo')
-                ->hideOnIndex(),
             TextField::new('email')
                 ->setFormTypeOption('disabled','disabled'),
-            ArrayField::new('roles'),
+            TextareaField::new('message'),
             DateTimeField::new('createdAt')
+                ->hideOnForm()
                 ->setFormTypeOption('disabled','disabled'),
         ];
     }
