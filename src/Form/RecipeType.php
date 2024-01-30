@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Recipe;
-use App\Entity\ingredient;
+use App\Entity\Ingredient;
 use App\Repository\IngredientRepository;
 use Symfony\Component\Form\AbstractType;
 

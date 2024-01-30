@@ -4,13 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
+	<div class="container-lg mt-4">
 		{% if not recipes.items is same as([]) %}
 			<h1>Recettes de la communauté</h1>
 
 			<div class="d-flex justify-content-center flex-wrap">
 				{% for recipe in recipes %}
-					<div class="card border-primary mb-3" style="max-width: 20rem;">
+					<div class="card border-primary m-3" style="max-width: 20rem;">
 						<div class="card-header">Recette n°{{ recipe.id }}</div>
 						<div class="card-body">
 							<h4 class="card-title">
