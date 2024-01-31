@@ -78,7 +78,7 @@ class Recipe
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: ingredient::class)]
+    #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $ingredients;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
@@ -270,14 +270,14 @@ class Recipe
     }
 
     /**
-     * @return Collection<int, ingredient>
+     * @return Collection<int, Ingredient>
      */
     public function getIngredients(): Collection
     {
         return $this->ingredients;
     }
 
-    public function addIngredient(ingredient $ingredient): static
+    public function addIngredient(Ingredient $ingredient): static
     {
         if (!$this->ingredients->contains($ingredient)) {
             $this->ingredients->add($ingredient);
@@ -286,7 +286,7 @@ class Recipe
         return $this;
     }
 
-    public function removeIngredient(ingredient $ingredient): static
+    public function removeIngredient(Ingredient $ingredient): static
     {
         $this->ingredients->removeElement($ingredient);
 
