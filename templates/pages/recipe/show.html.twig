@@ -35,7 +35,7 @@
 
 <div class="row">
 <div class="col-6 col-sm-6"><h3 class="mb-0">    
-        {% if recipe.time %}<p>⏲️ {{recipe.time}} min</p>{% else %}<p>Temps non renseigné.</p>{% endif %}
+        {% if recipe.time %}<p>⏲️ {{recipe.time|min_to_hour}} min</p>{% else %}<p>Temps non renseigné.</p>{% endif %}
       </h3></div>
 <div class="col-6 col-sm-6"><h3 class="mb-0">    
         {% if recipe.nbPeople %}<p>🧑🏽‍🍳 {{recipe.nbPeople}} pers</p>{% else %}<p>Nombre de personnes non renseigné.</p>{% endif %}
